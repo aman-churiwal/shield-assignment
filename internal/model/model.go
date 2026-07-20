@@ -20,12 +20,12 @@ type LoginRequest struct {
 
 type DailyUniqueUsersResponse struct {
 	Date        string `json:"date"`
-	TimeZone    string `json:"timezone"`
+	Timezone    string `json:"timezone"`
 	UniqueUsers int    `json:"unique_users"`
 }
 
 type MonthlyUniqueUsersResponse struct {
-	Date        string `json:"date"`
-	TimeZone    string `json:"timezone"`
+	Month       string `json:"date"`
+	Timezone    string `json:"timezone"`
 	UniqueUsers int    `json:"unique_users"`
 }
