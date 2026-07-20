@@ -15,7 +15,7 @@ type LoginEvent struct {
 
 type LoginRequest struct {
 	UserID    uuid.UUID `json:"user_id" binding:"required"`
-	LoginTime time.Time `json:"login_time" binding:"required"`
+	LoginTime string    `json:"login_time" binding:"required"`
 }
 
 type DailyUniqueUsersResponse struct {
