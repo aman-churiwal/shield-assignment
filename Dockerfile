@@ -18,4 +18,4 @@ COPY migrations/ ./migrations/
 
 EXPOSE 8080
 
-CMD["./server"]
+CMD ["./server"]

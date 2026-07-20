@@ -27,7 +27,7 @@ func NewPostgresRepository(db *sql.DB) *PostgresRepository {
 }
 
 func ConnectDB(dsn string) (*sql.DB, error) {
-	db, err := sql.Open("postgres", dsn)
+	db, err := sql.Open("pgx", dsn)
 	if err != nil {
 		return nil, fmt.Errorf("failed to open database: %w", err)
 	}
@@ -91,7 +91,7 @@ func (r *PostgresRepository) GetMonthlyUniqueUsers(ctx context.Context, year, mo
 func (r *PostgresRepository) RunMigrations(ctx context.Context) error {
 	migration := `
 		CREATE TABLE IF NOT EXISTS user_logins (
-		    id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+		    id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
 		    user_id uuid NOT NULL,
 		    login_time timestamptz NOT NULL,
 		    created_at timestamptz NOT NULL DEFAULT NOW()
