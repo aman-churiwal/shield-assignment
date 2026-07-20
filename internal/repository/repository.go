@@ -57,8 +57,8 @@ func (r *PostgresRepository) GetDailyUniqueUsers(ctx context.Context, date time.
 	query := `
 		SELECT COUNT(DISTINCT user_id)
 		FROM user_logins
-		WHERE login_time >= $1::date AT TIME ZONE $2
-		AND login_time < ($1::date + INTERVAL '1 day') AT TIME ZONE $2
+		WHERE login_time >= $1::date::timestamp AT TIME ZONE $2
+		AND login_time < ($1::date::timestamp + INTERVAL '1 day') AT TIME ZONE $2
 	`
 	dateStr := date.Format("2006-01-02")
 	var count int
@@ -74,8 +74,8 @@ func (r *PostgresRepository) GetMonthlyUniqueUsers(ctx context.Context, year, mo
 	query := `
 		SELECT COUNT(DISTINCT user_id)
 		FROM user_logins
-		WHERE login_time >= DATE_TRUNC('month', $1::date) AT TIME ZONE $2
-		AND login_time < (DATE_TRUNC('month', ($1::date) + INTERVAL '1 month') AT TIME ZONE $2
+		WHERE login_time >= DATE_TRUNC('month', $1::date::timestamp) AT TIME ZONE $2
+		AND login_time < (DATE_TRUNC('month', $1::date::timestamp) + INTERVAL '1 month') AT TIME ZONE $2
 	`
 
 	dateStr := fmt.Sprintf("%04d-%02d-01", year, month)
