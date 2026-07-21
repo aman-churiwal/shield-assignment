@@ -34,7 +34,8 @@ func (h *Handler) RecordLogin(c *gin.Context) {
 	}
 
 	if err := h.svc.RecordLogin(c.Request.Context(), req.UserID, req.LoginTime); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusCreated, gin.H{"message": "login recorded"})
@@ -51,7 +52,7 @@ func (h *Handler) GetDailyUniqueUsers(c *gin.Context) {
 
 	count, err := h.svc.GetDailyUniqueUsers(c.Request.Context(), date, tz)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -78,7 +79,7 @@ func (h *Handler) GetMonthlyUniqueUsers(c *gin.Context) {
 
 	count, err := h.svc.GetMonthlyUniqueUsers(c.Request.Context(), month, tz)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 

@@ -103,7 +103,7 @@ func TestGetDailyUniqueUsers_DefaultTimezone(t *testing.T) {
 	expectedDate, _ := time.Parse("2006-01-02", "2026-07-20")
 	mockRepo.On("GetDailyUniqueUsers", mock.Anything, expectedDate, "UTC").Return(10, nil)
 
-	count, err := svc.GetMonthlyUniqueUsers(context.Background(), "2026-07-20", "")
+	count, err := svc.GetDailyUniqueUsers(context.Background(), "2026-07-20", "")
 	assert.NoError(t, err)
 	assert.Equal(t, 10, count)
 }
@@ -112,9 +112,10 @@ func TestGetMonthlyUniqueUsers_ValidInput(t *testing.T) {
 	mockRepo := new(MockRepository)
 	svc := NewAnalyticsService(mockRepo)
 
-	mockRepo.On("GetDailyUniqueUsers", mock.Anything, 2026, 1, "UTC").Return(150, nil)
+	mockRepo.On("GetMonthlyUniqueUsers", mock.Anything, 2026, 7, "UTC").Return(150, nil)
 
-	count, err := svc.GetMonthlyUniqueUsers(context.Background(), "2026-07-20", "UTC")
+	count, err := svc.GetMonthlyUniqueUsers(context.Background(), "2026-07", "UTC")
+
 	assert.NoError(t, err)
 	assert.Equal(t, 150, count)
 	mockRepo.AssertExpectations(t)

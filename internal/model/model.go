@@ -25,7 +25,7 @@ type DailyUniqueUsersResponse struct {
 }
 
 type MonthlyUniqueUsersResponse struct {
-	Month       string `json:"date"`
+	Month       string `json:"month"`
 	Timezone    string `json:"timezone"`
 	UniqueUsers int    `json:"unique_users"`
 }
