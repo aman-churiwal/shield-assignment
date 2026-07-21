@@ -34,7 +34,9 @@ func main() {
 	svc := service.NewAnalyticsService(repo)
 	h := handler.NewHandler(svc)
 
-	router := gin.Default()
+	gin.SetMode(gin.ReleaseMode)
+	router := gin.New()
+	router.Use(gin.Recovery())
 	h.RegisterRoutes(router)
 
 	srv := &http.Server{
