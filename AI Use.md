@@ -21,6 +21,8 @@ I have used obra superpowers open source skills plugin for using AI efficiently 
 
 Most of the responses from the LLMs were just approaches and plans which I needed to review and provide feedback if necessary
 
+Design spec and implementation plan can be found in the `docs` folder.
+
 ### Screenshots:
 1.  ![ss1](screenshots/img.png)
 2.  ![ss2](screenshots/img_1.png)
@@ -43,4 +45,3 @@ Since I used superpowers skill plugin, hallucinations were greatly reduced. But 
 - My free quota for the model was exhausted just after writing the implementation plan. So all these corrections I did manually.
 - Since the quota was exhausted, I was not able to use executing-plan and subagent-driven-development skills. Otherwise, I would have made the submission earlier.
 - Also, I would like to mention that the implementation plan used a `gin.Default()` and normal `sql.Open()` without setting any `SetMaxOpenConns`, `SetMaxIdleConns`, `SetConnMaxLifetime`. So I generated a script using Claude Sonnet 5 for testing the app on scale. After the test, claude suggested that I should change `gin.Default()` to `gin.SetMode`, `(gin.ReleaseMode)`, `gin.New()`, `router.Use(gin.Recovery())` in `main.go` so that compute power is not wasted in logs and panic recovery. It also suggested to add `SetMaxOpenConns`, `SetMaxIdleConns`, `SetConnMaxLifetime` in `repository.go` so that db does not keep opening new connections.
-
